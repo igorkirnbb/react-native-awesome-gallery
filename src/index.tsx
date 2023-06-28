@@ -11,8 +11,8 @@ import {
   StyleSheet,
   useWindowDimensions,
   View,
-  ViewStyle,
 } from 'react-native';
+import type { ViewStyle } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useDerivedValue,
@@ -169,9 +169,10 @@ const ResizableImage = React.memo(
     const originalLayout = useVector(width, 0);
     const layout = useVector(width, 0);
 
-    const isActive = useDerivedValue(() => currentIndex.value === index, [
-      currentIndex,
-    ]);
+    const isActive = useDerivedValue(
+      () => currentIndex.value === index,
+      [currentIndex]
+    );
 
     useAnimatedReaction(
       () => {
@@ -937,7 +938,7 @@ const GalleryComponent = <T extends any>(
   }));
 
   const changeIndex = useCallback(
-    (newIndex) => {
+    (newIndex: number) => {
       onIndexChange?.(newIndex);
       setIndex(newIndex);
     },
